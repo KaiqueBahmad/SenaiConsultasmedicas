@@ -2,19 +2,27 @@ package com.senai.kaiquebahmad.consultasmedicas.entity;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+@Entity
 public class Medico {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ID;
-	@OneToMany()
+	
+	@OneToMany(mappedBy = "medico")
 	private List<Consulta> consultas;
+	
 	private String nome;
-	private Especialidade especialidade;
+	
+	private String especialidade;
+	
+	@Column(unique = true)
 	private String CRM;
 
 	public String getNome() {
@@ -23,10 +31,10 @@ public class Medico {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Especialidade getEspecialidade() {
+	public String getEspecialidade() {
 		return especialidade;
 	}
-	public void setEspecialidade(Especialidade especialidade) {
+	public void setEspecialidade(String especialidade) {
 		this.especialidade = especialidade;
 	}
 	public String getCRM() {

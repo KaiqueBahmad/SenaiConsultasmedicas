@@ -2,21 +2,36 @@ package com.senai.kaiquebahmad.consultasmedicas.entity;
 
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
+@Entity
 public class Consulta {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ID;
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
-	@OneToMany
+	
+	@ManyToOne
+	@JoinColumn(name = "medico_id")
 	private Medico medico;
-	@OneToMany
+	
+	@ManyToOne
+	@JoinColumn(name = "paciente_id")
 	private Paciente paciente;
+	
+	@Enumerated(EnumType.STRING)
 	private Status status;
 	
 	public static enum Status {
